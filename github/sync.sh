@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Clone every public repos for an user
+# Backup every public repos for an user
 
 USER=${GITHUB_USER?Variable not set}
 
@@ -17,12 +17,11 @@ for repo in $REPOS
 do
 	echo "$repo"
 	if [[ -d $repo ]]; then
-		# Already cloned, just fetch
+		# Already cloned, just update
 		(	cd "$repo"
-			git fetch -q --all
-			git pull -q --no-ff )
+			git remote update )
 	else
 		mkdir -p "$repo"
-		git clone -q -- "git://github.com/$repo.git" "$repo"
+		git clone --mirror -q --progress -- "git://github.com/$repo.git" "$repo"
 	fi
 done
