@@ -5,9 +5,7 @@
 USER=${GITHUB_USER?Variable not set}
 
 # Empty USER, do nothing
-if [[ -z $USER ]]; then exit 1; fi
-
-echo "Syncing..."
+if [[ -z $USER ]]; then exit 101; fi
 
 # https://developer.github.com/v3/repos/#list-user-repositories
 curl --silent "https://api.github.com/users/$USER/repos?type=all&per_page=10000" > repo_list
