@@ -3,10 +3,10 @@ set -e
 
 # Backup every public repos for an user
 
-USER=${1?Missing argument: Github user}
+USER=${1:?Missing argument: Github user}
 
-# Empty USER, do nothing
-if [[ -z $USER ]]; then exit 101; fi
+mkdir -p github
+cd github
 
 # https://developer.github.com/v3/repos/#list-user-repositories
 curl --silent "https://api.github.com/users/$USER/repos?type=all&per_page=10000" > repo_list

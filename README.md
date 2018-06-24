@@ -4,4 +4,4 @@ Work in progress
 
 ### Usage
 
-Edit the `config.sh` file and run `./sync.sh`
+Edit and run `./sync.sh`
