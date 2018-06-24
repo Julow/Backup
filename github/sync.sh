@@ -1,8 +1,9 @@
 #!/bin/bash
+set -e
 
 # Backup every public repos for an user
 
-USER=${GITHUB_USER?Variable not set}
+USER=${1?Missing argument: Github user}
 
 # Empty USER, do nothing
 if [[ -z $USER ]]; then exit 101; fi
