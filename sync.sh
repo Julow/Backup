@@ -4,16 +4,27 @@ cd ${0%/*}
 # -
 # Configs
 
+BACKUP_ROOT="$(pwd)"
+
 # The folder that contains backup datas
-BACKUP_LOCATION=$(pwd)/backup
+BACKUP_LOCATION="$BACKUP_ROOT/backup"
+
+# Usage: ```( in_directory "path"; command )```
+in_directory ()
+{
+	mkdir -p "$1"
+	cd "$1"
+}
 
 # Commands to run
 # They are run in the $BACKUP_LOCATION directory
 # sync_* scripts are available
+# The sync_* scripts take absolute paths
 sync ()
 {
 	sync_github.sh "Julow"
-	sync_user.sh ~/.presets ~/Documents/config
+	sync_user.sh "$BACKUP_ROOT/sync.sh"
+	( in_directory projects; sync_git.sh ~/Documents/projects/* )
 }
 
 # End of configs
@@ -33,8 +44,7 @@ name_noclash ()
 
 # Sync
 PATH="$(pwd):$PATH"
-mkdir -p "$BACKUP_LOCATION"
-( cd "$BACKUP_LOCATION"; sync )
+( in_directory "$BACKUP_LOCATION"; sync )
 
 # Build the archive
 BACKUP_NAME=$(name_noclash "backup-$(date +"%F")" ".tar.gz")

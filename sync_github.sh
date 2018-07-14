@@ -16,13 +16,7 @@ REPOS=`sed -nE 's/ *"full_name": "(.+)",/\1/p' repo_list`
 
 for repo in $REPOS
 do
-	echo "$repo"
-	if [[ -d $repo ]]; then
-		# Already cloned, just update
-		(	cd "$repo"
-			git remote update )
-	else
-		mkdir -p "$repo"
-		git clone --mirror -q --progress -- "git://github.com/$repo.git" "$repo"
-	fi
+	USER=${repo%%/*}
+	mkdir -p "$USER"
+	( cd "$USER"; sync_git.sh "git://github.com/$repo.git" )
 done
