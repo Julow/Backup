@@ -8,6 +8,8 @@ USER=${1:?Missing argument: Github user}
 mkdir -p github
 cd github
 
+echo "# [Github] $USER"
+
 # https://developer.github.com/v3/repos/#list-user-repositories
 curl --silent "https://api.github.com/users/$USER/repos?type=all&per_page=10000" > repo_list
 

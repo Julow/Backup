@@ -34,10 +34,10 @@ for uri in "$@"
 do
 	DST=${uri##*/}
 	DST=${DST%%.git}
-	echo "$uri -> $DST"
+	echo "# [Git] $uri"
 	if [[ -d $DST ]]; then
 		# Already cloned, just update
-		( cd "$DST"; git remote update; update_patches "$uri" )
+		( cd "$DST"; git remote update >/dev/null; update_patches "$uri" )
 	else
 		mkdir -p "$DST"
 		git clone --mirror -q --progress -- "$uri" "$DST"

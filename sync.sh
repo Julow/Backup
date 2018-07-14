@@ -48,4 +48,5 @@ PATH="$(pwd):$PATH"
 
 # Build the archive
 BACKUP_NAME=$(name_noclash "backup-$(date +"%F")" ".tar.gz")
+echo "# Archive: $BACKUP_NAME"
 tar -czf "$BACKUP_NAME" -C "$BACKUP_LOCATION" .
